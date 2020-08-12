@@ -48,8 +48,22 @@ public class RouteControllerTest extends MastercardApplicationTests {
 	}
 
 	@Test
-	public void getIsConnected_NO() throws Exception {
+	public void getIsConnected1_YES() throws Exception {
 		Route route = new Route("Boston", "Philadelphia");
+		MvcResult mvcResult = mvc
+				.perform(MockMvcRequestBuilders
+						.get(API + "?origin=" + route.getOrigin() + "&destination=" + route.getDestination()))
+				.andReturn();
+
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(200, status);
+		String content = mvcResult.getResponse().getContentAsString();
+		assertEquals(content, "yes");
+	}
+	
+	@Test
+	public void getIsConnected_NO() throws Exception {
+		Route route = new Route("Philadelphia", "Albany");
 		MvcResult mvcResult = mvc
 				.perform(MockMvcRequestBuilders
 						.get(API + "?origin=" + route.getOrigin() + "&destination=" + route.getDestination()))

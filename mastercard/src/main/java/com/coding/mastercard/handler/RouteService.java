@@ -53,7 +53,6 @@ public class RouteService {
 						}
 					}
 				}
-				return isValidRoute(new Route(destination, origin));
 			} catch (IOException e) {
 
 			}
